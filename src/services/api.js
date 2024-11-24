@@ -28,11 +28,10 @@ export const getTrendingMovies = async (page=1) => {
 
 
 
-/*отримуємо деталі по обраним фільмам з головної сторінки*/
+/*отримуємо деталі по обраним фільмам з головної сторінки жанр, опис тощо*/
 export const getMovieDetails = async (movieId) => {
   try {
       const response = await axios.get(`${BASE_URL}/movie/${movieId}`, options);
-      console.log(response.data)
     return response.data;
   } catch (error) {
     console.error(error);
@@ -40,5 +39,38 @@ export const getMovieDetails = async (movieId) => {
   }
 };
 
+//отримуємо відгуки для фільмів
+export const getMovieReviews = async (movieId) => {
+    try {
+        const response = await axios.get(`${BASE_URL}/movie/${movieId}/reviews`, options);
+        
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
 
-
+//отримуємо акторів
+export const getMovieCast = async (movieId) => {
+    try {
+        const response = await axios.get(`${BASE_URL}/movie/${movieId}/credits`, options);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+//отримуємо фільми за пошуком
+export const getSearchMovie = async (query) => {
+    try {
+        const response = await axios.get(`${BASE_URL}/search/movie`, {
+            ...options, params: {
+            query: query,
+        }});
+        return response.data
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
