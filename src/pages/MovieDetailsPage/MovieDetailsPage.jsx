@@ -2,7 +2,7 @@ import s from './MovieDetailsPage.module.css'
 import { NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import { getMovieDetails } from "../../services/api";
 import BackLink from "../../components/BackLink/BackLink";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Loader from '../../components/Loader/Loader';
 import clsx from "clsx";
 
@@ -12,8 +12,9 @@ const MovieDetailsPage = () => {
     const [selectedMovie, setSelectedMovie] = useState(null);
     const { movieId } = useParams();
     const location = useLocation();
-    const backLinkHref = location.state ?? "/movies/";
+    const goBackLink = useRef(location.state ?? '/movies')
     
+
     const buildLinkClass = ({ isActive }) => {
   return clsx(s.link, isActive && s.active);
 };
@@ -35,7 +36,7 @@ const MovieDetailsPage = () => {
     }, [movieId])
     return (
         <div>
-            <BackLink to={backLinkHref}>BACK TO MOVIES</BackLink>
+            <BackLink to={goBackLink.current}>BACK TO MOVIES</BackLink>
             {isLoading && <Loader/>}
             {selectedMovie && (
                 <>

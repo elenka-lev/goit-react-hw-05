@@ -1,12 +1,15 @@
 import { Field, Form, Formik } from "formik";
 import { getSearchMovie } from "../../services/api";
 import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 const MoviesPage = () => {
-    // const [searchMovies, setSearchMovies] = useState('');
+    
     const [movies, setMovies] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
     const searchMovie = searchParams.get("query") || "";
+
+    const location = useLocation();
+    
 
     const handleSearch = ({ query }, { resetForm }) => {
     if (query.trim()) {
@@ -51,7 +54,7 @@ const MoviesPage = () => {
             <ul>
                 {movies.map((movie) => (
                     <li key={movie.id}>
-                        <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+                        <Link to={`/movies/${movie.id.toString()}`} state={location}>{movie.title}</Link>
                     </li>
                 ))}
             </ul>
