@@ -1,23 +1,29 @@
 import { Field, Form, Formik } from "formik";
 import { getSearchMovie } from "../../services/api";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 const MoviesPage = () => {
-    const [searchMovies, setSearchMovies] = useState('');
+    // const [searchMovies, setSearchMovies] = useState('');
     const [movies, setMovies] = useState([]);
-    const handleSearch = (values, options) => {
-        const query = values.query;
-        setSearchMovies(query);
-        setMovies([]);
-        options.resetForm();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const searchMovie = searchParams.get("query") || "";
+
+    const handleSearch = ({ query }, { resetForm }) => {
+    if (query.trim()) {
+        setSearchParams({ query: query.trim() }); 
+    }
+        resetForm();
     }
 
     useEffect(() => {
-        if (!searchMovies) return
+         if (!searchMovie) {
+            setMovies([]); 
+            return;
+        }
     
         const getSearch = async () => {
             try {
-                const dataMovies = await getSearchMovie(searchMovies);
+                const dataMovies = await getSearchMovie(searchMovie);
                 if (dataMovies.results.length === 0) {
                     return setMovies([]);
                 }
@@ -27,7 +33,7 @@ const MoviesPage = () => {
             }
         }
         getSearch()
-    },[searchMovies])
+    },[searchMovie])
 
 
     const initialValues = {
@@ -49,6 +55,8 @@ const MoviesPage = () => {
                     </li>
                 ))}
             </ul>
+            {movies.length === 0 && searchMovie && (
+                <p>No movies found. Please, try again.</p>)}
     </>
     )
 }
