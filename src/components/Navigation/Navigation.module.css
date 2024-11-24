@@ -1,0 +1,20 @@
+.header {
+    width: 100%;
+    box-shadow: 0px 5px 5px gray;
+    padding: 20px;
+}
+.nav {
+    display: flex;
+    justify-content: start;
+    gap: 30px;
+}
+.link {
+    font-size: 40px;
+    color:black;
+    &:hover {
+        color: orange;
+    }
+}
+.active {
+    color: orange;
+}
