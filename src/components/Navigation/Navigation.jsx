@@ -1,5 +1,5 @@
+import s from './Navigation.module.css';
 import clsx from "clsx";
-import s from './Navigation.module.css'
 import { NavLink} from "react-router-dom";
 
 

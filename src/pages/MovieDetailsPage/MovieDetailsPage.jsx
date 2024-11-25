@@ -1,10 +1,10 @@
 import s from './MovieDetailsPage.module.css'
-import { NavLink, Outlet, useLocation, useParams } from "react-router-dom";
+import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import { getMovieDetails } from "../../services/api";
 import BackLink from "../../components/BackLink/BackLink";
 import { useEffect, useRef, useState } from "react";
 import Loader from '../../components/Loader/Loader';
-import clsx from "clsx";
+
 
 
 const MovieDetailsPage = () => {
@@ -15,9 +15,6 @@ const MovieDetailsPage = () => {
     const goBackLink = useRef(location.state ?? '/movies')
     
 
-    const buildLinkClass = ({ isActive }) => {
-  return clsx(s.link, isActive && s.active);
-};
     useEffect(() => {
         const getSelectMovie = async () => {
             
@@ -41,28 +38,33 @@ const MovieDetailsPage = () => {
             {selectedMovie && (
                 <>
                     <h2>{selectedMovie.title}</h2>
-                    <img src={`https://image.tmdb.org/t/p/w500/${selectedMovie.poster_path}`} alt={selectedMovie.title} />
-                    <ul>
-                        <li>Genres: {selectedMovie.genres.map(genre => genre.name).join(", ")}</li>
-                        <li>Overview: {selectedMovie.overview}</li>
-                        <li>Popularity: {selectedMovie.popularity}</li>
-                    </ul>
-
+                    <div className={s.wrap}>
+                        <img src={`https://image.tmdb.org/t/p/w500/${selectedMovie.poster_path}`} alt={selectedMovie.title} className={s.img} />
+                        <div className={s.descr}>
+                            <ul className={s.items}>
+                                <li><span className={s.span}>Genres:</span> {selectedMovie.genres.map(genre => genre.name).join(", ")}</li>
+                                <li><span className={s.span}>Overview:</span> {selectedMovie.overview}</li>
+                                <li><span className={s.span}>Popularity:</span> {selectedMovie.popularity}</li>
+                            </ul>
+                            <ul className={s.items}>
+                                <li>
+                                    <Link to='cast' className={s.link__descr}>
+                                         Cast
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link to='reviews' className={s.link__descr}>
+                                       Reviews
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <Outlet/>
                 </>
             )}
-            <ul>
-               <li>
-                    <NavLink to='cast' className={buildLinkClass}>
-                        Cast
-                    </NavLink>
-               </li>
-                <li>
-                    <NavLink to='reviews' className={buildLinkClass}>
-                        Reviews
-                    </NavLink>
-                </li>
-            </ul>
-            <Outlet/>
+            
+            
     </div>
 )
 

@@ -62,11 +62,12 @@ export const getMovieCast = async (movieId) => {
     }
 }
 //отримуємо фільми за пошуком
-export const getSearchMovie = async (query) => {
+export const getSearchMovie = async (query, page) => {
     try {
         const response = await axios.get(`${BASE_URL}/search/movie`, {
             ...options, params: {
-            query: query,
+                query: query,
+                page: page,
         }});
         return response.data
     } catch (error) {

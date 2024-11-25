@@ -1,0 +1,32 @@
+.wrap {
+    display: flex;
+    padding: 32px 30px;
+}
+.img {
+    width: 250px;
+}
+.descr {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    
+}
+.items {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    font-size: 25px;
+    margin: 0;
+}
+.span {
+    font-weight: 800;
+}
+.link__descr {
+    color:black;
+    font-size: 25px;
+    &:hover {
+        color:orange;
+    }
+}

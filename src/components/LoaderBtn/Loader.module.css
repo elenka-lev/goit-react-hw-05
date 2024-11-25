@@ -1,0 +1,13 @@
+.btn {
+    
+            height: 40px;
+            width: 100px;
+            border: 1px solid gray;
+            border-radius: 7px;
+            font-size: 15px;
+            
+        &:hover {
+            border: 1px solid orange;
+            cursor: pointer;
+        }
+}

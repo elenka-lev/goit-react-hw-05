@@ -1,9 +1,10 @@
+import s from './HomePage.module.css'
 import { useEffect, useState } from "react";
 import { getTrendingMovies } from "../../services/api";
 import LoaderBtn from "../../components/LoaderBtn/LoaderBtn";
 import Loader from "../../components/Loader/Loader";
-import s from './HomePage.module.css'
 import { Link } from "react-router-dom";
+
 const HomePage = () => {
     /*отримаємо список фільмів*/
     const [movies, setMovies] = useState([]);
@@ -45,9 +46,9 @@ const HomePage = () => {
         <div className={s.container}>
             <h1>Trending Movies</h1>
             {isLoading && <Loader/>}
-            <ul>
+            <ul className={s.wrap}>
                 {movies.map((movie) => 
-                    (<li key={movie.id}><Link to={`/movies/${movie.id}`}>{movie.title}</Link></li>)
+                    (<li key={movie.id} className={s.item}><Link to={`/movies/${movie.id}`} className={s.link}>{movie.title}</Link></li>)
                 )}
                 
         </ul>

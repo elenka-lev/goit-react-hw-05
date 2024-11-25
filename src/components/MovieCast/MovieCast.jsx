@@ -1,3 +1,4 @@
+import s from './MovieCast.module.css';
 import { useParams } from "react-router-dom";
 import { getMovieCast } from "../../services/api";
 import Loader from "../Loader/Loader";
@@ -26,13 +27,16 @@ const MovieCast = () => {
         return <p>No information about actors.</p>;
     }
     return (
-        <div>
+        <div className={s.container}>
             {isLoading && <Loader />}
-            <ul>
+            <ul className={s.items}>
                 {casts.map((cast) => (
-                    <li key={cast.id}>
-                        <img src={`https://image.tmdb.org/t/p/w500/${cast.profile_path}`} alt={cast.name} />
-                        <p>{cast.name} as {cast.character }</p>
+                    <li key={cast.id} className={s.item}>
+                        <img src={`https://image.tmdb.org/t/p/w500/${cast.profile_path}`} className={s.itemImg} alt={cast.name} width={300} />
+                        
+                            <p className={s.itemDescr}>{cast.name}</p>
+                            <p className={s.itemDescr}>{cast.character}</p>
+                        
                     </li>
                 ))}
             </ul>
