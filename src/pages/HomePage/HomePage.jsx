@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { getTrendingMovies } from "../../services/api";
 import LoaderBtn from "../../components/LoaderBtn/LoaderBtn";
 import Loader from "../../components/Loader/Loader";
-import { Link } from "react-router-dom";
-
+// import { Link } from "react-router-dom";
+import MovieList from '../../components/MoviesList/MovieList';
 const HomePage = () => {
     /*отримаємо список фільмів*/
     const [movies, setMovies] = useState([]);
@@ -45,13 +45,8 @@ const HomePage = () => {
     return (
         <div className={s.container}>
             <h1>Trending Movies</h1>
-            {isLoading && <Loader/>}
-            <ul className={s.wrap}>
-                {movies.map((movie) => 
-                    (<li key={movie.id} className={s.item}><Link to={`/movies/${movie.id}`} className={s.link}>{movie.title}</Link></li>)
-                )}
-                
-        </ul>
+            {isLoading && <Loader />}
+            {!isLoading  && <MovieList movies={movies} />}
         {movies.length > 0 && page < totalPage && (
         <LoaderBtn onClick={handleLoadMore} />
         )}

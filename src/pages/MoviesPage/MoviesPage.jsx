@@ -2,9 +2,10 @@ import s from './MoviesPage.module.css';
 import { Field, Form, Formik } from "formik";
 import { getSearchMovie } from "../../services/api";
 import { useEffect, useState } from "react";
-import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import LoaderBtn from "../../components/LoaderBtn/LoaderBtn";
 import Loader from '../../components/Loader/Loader';
+import MovieList from '../../components/MoviesList/MovieList';
 const MoviesPage = () => {
     
     const [movies, setMovies] = useState([]);
@@ -75,13 +76,7 @@ const MoviesPage = () => {
             </Form>
             </Formik>
            {isLoading && <Loader/>}
-            <ul>
-                {movies.map((movie) => (
-                    <li key={movie.id}>
-                        <Link to={`/movies/${movie.id.toString()}`} state={location} className={s.link}>{movie.title}</Link>
-                    </li>
-                ))}
-            </ul>
+            <MovieList movies={movies} location={location} />
              {movies.length > 0 && page < totalPages && (
                 <LoaderBtn onClick={handleLoadMore} />)}
             {movies.length === 0 && searchMovie && (
